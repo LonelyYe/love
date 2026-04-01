@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给亲爱的你 ❤</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            color: #5a3d5c;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: #d32f6d;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #8a4b8c;
+            margin-bottom: 30px;
+        }
+        
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4081;
+            transform: rotate(45deg);
+            opacity: 0.7;
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #ff4081;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(-20px); }
+        }
+        
+        .main-content {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .photo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 10px solid white;
+        }
+        
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .message-section {
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .special-name {
+            color: #d32f6d;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .interactive-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .love-btn {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+            margin: 10px;
+        }
+        
+        .love-btn:hover {
+            background-color: #d32f6d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.5);
+        }
+        
+        .hidden-message {
+            display: none;
+            background-color: #fff0f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #ff4081;
+        }
+        
+        .countdown {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .countdown h3 {
+            color: #d32f6d;
+            margin-bottom: 15px;
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff4081;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8a4b8c;
+            font-size: 0.9rem;
+        }
+        
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .music-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #ff4081;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .main-content { padding: 20px; }
+            .photo-frame { width: 250px; height: 250px; }
+            .message-section { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮动爱心背景 -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-heart"></i> 给亲爱的你 <i class="fas fa-heart"></i></h1>
+            <p class="subtitle">这个网页，只为你一人而建 ❤</p>
+        </header>
+        
+        <div class="countdown">
+            <h3>我们相遇的第 <span class="countdown-number" id="daysCount">0</span> 天</h3>
+            <p>每一天都因为有你而更加美好</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="photo-section">
+                <h2><i class="fas fa-camera"></i> 我们的回忆</h2>
+                <!-- <p style="margin-bottom: 20px; color: #777;">(在这里替换成你们的合照)</p> -->
+                <p style="margin-bottom: 20px; color: #777;"></p>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <div>
+                            <i class="fas fa-heart" style="font-size: 3rem; margin-bottom: 10px; display: block;"></i>
+                            你的照片在这里
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="message-section">
+                <h2><i class="fas fa-envelope"></i> 我想对你说...</h2>
+                <p>亲爱的 <span class="special-name" id="specialName">A</span>，</p>
+                
+                <p>从遇见你的那一天起，我的世界就变得不一样了。</p>
+                
+                <p>你的笑容像阳光一样温暖，你的存在让我的每一天都充满意义。我不知道该用多少文字才能表达我的心意，但我知道，我希望能和你一起走过每一个春夏秋冬。</p>
+                
+                <p>也许我不是最完美的人，但我会努力成为最适合你的那个人。和你在一起的每一刻，都是我生命中最珍贵的时光。</p>
+                
+                <p>这个小小的网页，是我为你准备的一份特别礼物。它可能不够华丽，但每一行代码都承载着我的心意。</p>
+                
+                <p>无论未来怎样，我希望你知道：在这个世界上，有一个人会永远珍惜你、爱护你、支持你。</p>
+                
+                <p style="text-align: right; margin-top: 20px; font-weight: bold;">
+                    永远爱你的<br>
+                    <span id="yourName">BB</span>
+                </p>
+            </div>
+            
+            <div class="interactive-section">
+                <h2><i class="fas fa-gift"></i> 给你的小惊喜</h2>
+                <p style="margin-bottom: 20px;">点击下面的按钮，看看我想对你说什么</p>
+                
+                <button class="love-btn" id="showMessageBtn">
+                    <i class="fas fa-lock"></i> 点击解锁秘密消息
+                </button>
+                
+                <div class="hidden-message" id="hiddenMessage">
+                    <h3><i class="fas fa-star"></i> 我最想对你说的话：</h3>
+                    <p>在我心中，你是最特别的存在。无论发生什么，我都会站在你身边。</p>
+                    <p>如果可以，我希望未来的每一天都能和你一起度过。你愿意吗？</p>
+                    <p style="font-size: 1.5rem; color: #ff4081; margin-top: 15px;">❤ ❤ ❤</p>
+                </div>
+                
+                <button class="love-btn" id="createHeartsBtn">
+                    <i class="fas fa-heart"></i> 点击发送爱心
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>这个网页只为你一人创建 • 愿我们的故事一直继续 • ❤</p>
+            <p>© 2026 • 用代码写下的浪漫</p>
+        </footer>
+    </div>
+    
+    <!-- 音乐播放器 -->
+    <div class="music-player">
+        <button class="music-btn" id="playBtn">
+            <i class="fas fa-play"></i>
+        </button>
+        <button class="music-btn" id="pauseBtn">
+            <i class="fas fa-pause"></i>
+        </button>
+        <span style="color: #666; font-size: 0.9rem;">背景音乐</span>
+    </div>
+    
+    <!-- 背景音乐 (默认使用一首浪漫的钢琴曲，你可以替换) -->
+    <audio id="bgMusic" loop>
+        <!-- 这里可以替换成你自己的音乐文件 -->
+        <source src="https://assets.mixkit.co/music/preview/mixkit-loving-you-117.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+    
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 生成浮动爱心
+            function createHearts() {
+                const container = document.getElementById('heartsContainer');
+                const heartCount = 30;
+                
+                for (let i = 0; i < heartCount; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    
+                    // 随机位置
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    
+                    // 随机大小
+                    const size = Math.random() * 20 + 10;
+                    
+                    // 随机颜色
+                    const colors = ['#ff4081', '#d32f6d', '#ff79a6', '#ff9ab8'];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // 随机动画延迟
+                    const delay = Math.random() * 5;
+                    
+                    // 设置样式
+                    heart.style.left = `${left}%`;
+                    heart.style.top = `${top}%`;
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    heart.style.backgroundColor = color;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    // 设置伪元素颜色
+                    const before = heart.style;
+                    const after = heart.style;
+                    
+                    container.appendChild(heart);
+                }
+            }
+            
+            // 计算相遇天数
+            function calculateDays() {
+                // 这里设置你们的相遇日期，格式：年, 月-1, 日
+                // 例如：2025年3月20日 -> new Date(2025, 2, 20)
+                const meetDate = new Date(2026, 1, 18); // 修改为你们的相遇日期
+                const today = new Date();
+                const timeDiff = today.getTime() - meetDate.getTime();
+                const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+                
+                document.getElementById('daysCount').textContent = daysDiff;
+            }
+            
+            // 显示隐藏消息
+            document.getElementById('showMessageBtn').addEventListener('click', function() {
+                const message = document.getElementById('hiddenMessage');
+                if (message.style.display === 'block') {
+                    message.style.display = 'none';
+                    this.innerHTML = '<i class="fas fa-lock"></i> 点击解锁秘密消息';
+                } else {
+                    message.style.display = 'block';
+                    this.innerHTML = '<i class="fas fa-lock-open"></i> 消息已解锁';
+                    
+                    // 添加一些爱心动画
+                    for (let i = 0; i < 10; i++) {
+                        setTimeout(() => {
+                            createFloatingHeart();
+                        }, i * 100);
+                    }
+                }
+            });
+            
+            // 点击发送爱心按钮
+            document.getElementById('createHeartsBtn').addEventListener('click', function() {
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        createFloatingHeart();
+                    }, i * 100);
+                }
+            });
+            
+            // 创建浮动爱心动画
+            function createFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                
+                // 随机位置
+                const left = Math.random() * 100;
+                
+                // 随机大小
+                const size = Math.random() * 20 + 15;
+                
+                // 随机颜色
+                const colors = ['#ff4081', '#d32f6d', '#ff79a6', '#ff9ab8'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 设置样式
+                heart.style.left = `${left}%`;
+                heart.style.bottom = '-20px';
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                heart.style.backgroundColor = color;
+                heart.style.position = 'fixed';
+                heart.style.zIndex = '1000';
+                heart.style.animation = 'float 5s linear forwards';
+                
+                document.body.appendChild(heart);
+                
+                // 5秒后移除爱心
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+            
+            // 音乐控制
+            const bgMusic = document.getElementById('bgMusic');
+            const playBtn = document.getElementById('playBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            
+            // 播放音乐
+            playBtn.addEventListener('click', function() {
+                bgMusic.play();
+            });
+            
+            // 暂停音乐
+            pauseBtn.addEventListener('click', function() {
+                bgMusic.pause();
+            });
+            
+            // 自动播放音乐（注意：浏览器可能会阻止自动播放）
+            // 你可以取消下面的注释，但可能需要用户交互后才能播放
+            // bgMusic.play().catch(e => console.log("自动播放被阻止，需要用户交互"));
+            
+            // 初始化
+            createHearts();
+            calculateDays();
+            
+            // 替换提示文字
+            // alert("请记得修改页面中的名字和相遇日期！\n\n1. 在第242行修改相遇日期\n2. 在页面上找到'[请在此处输入...]'并替换\n3. 可以替换背景音乐和照片");
+        });
+    </script>
+</body>
+</html>
